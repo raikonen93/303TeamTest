@@ -10,7 +10,7 @@
     <Property Name="Email" Type="nvarchar(max)" />
     <Property Name="PhoneNumber" Type="nvarchar(max)" />
     <Property Name="Login" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Password" Type="varbinary(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
     <Property Name="IsDisabled" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="CustomerRole">
@@ -28,7 +28,7 @@
     <Property Name="RoleId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
-  <Association Name="FK__CustomerR__Custo__37A5467C">
+  <Association Name="FK__CustomerR__Custo__4AB81AF0">
     <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
     <End Role="CustomerRole" Type="Self.CustomerRole" Multiplicity="*" />
     <ReferentialConstraint>
@@ -56,7 +56,7 @@
     <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CustomerRole" EntityType="Self.CustomerRole" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK__CustomerR__Custo__37A5467C" Association="Self.FK__CustomerR__Custo__37A5467C">
+    <AssociationSet Name="FK__CustomerR__Custo__4AB81AF0" Association="Self.FK__CustomerR__Custo__4AB81AF0">
       <End Role="Customer" EntitySet="Customer" />
       <End Role="CustomerRole" EntitySet="CustomerRole" />
     </AssociationSet>

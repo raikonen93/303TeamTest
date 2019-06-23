@@ -1,51 +1,43 @@
 ﻿@model _303TeamTest.Models.CustomerLogin
+    @{ Layout = null;}
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Login</title>
-        <link href="~/Content/LoginStyle.css" rel="stylesheet" type="text/css" />
-        <script src="~/Scripts/LoginScript.js"></script>
-
-    </head>
+<html style="background:lightgray">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="~/Content/LoginStyle.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/LoginScript.js"></script>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+</head>
 <body>
-    @using (Html.BeginForm())
-    {
-        <div class="bs-example" style="border:2px solid gray;">
-            <div class="form-group centerlook">
-                <h1> Login </h1>
-            </div>
-            <div class="form-group centerlook">
-                <label>User Name: </label>
-                @Html.EditorFor(model => model.Login)
-                @Html.ValidationMessageFor(model => model.Login)
-            </div>
-            <div class="form-group centerlook">
-                <label>Password:</label>
-                @Html.EditorFor(model => model.Password) 
-                @Html.ValidationMessageFor(model => model.Password)
-
-            </div>
-            <div class="form-group error">
-                @if (@ViewBag.Failedcount != null)
-                {
-
-                    <label> Failed Attempt count is: @ViewBag.Failedcount</label>
-                }
-
-                @if (@ViewBag.NotValidUser != null)
-                {
-
-                    <label> @ViewBag.NotValidUser</label>
-                }
-            </div>
-            <div class="loginbtn">
-
-                <input type="submit" value="Login" class="btn btn-primary" />
-
-            </div>
+    <div style="width:320px; position:fixed;top:25%;left:40%; border:gray 1px solid;">
+        <div style="background:cornflowerblue;color:white; height:50px;text-align:center;font-size:28px;line-height:50px; border-bottom:gray 1px solid;">
+            <p style="margin:0">Management System</p>
         </div>
-    }   
+        <div style="padding: 20px 0px 20px 20px">
+            @using (Html.BeginForm("LoginIntoSystem", "Home", FormMethod.Post))
+            {
+                @Html.LabelFor(model => model.Login, new { @style = "display:block;color:dimgrey;font-weight: bold;" })
+                @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @style = "display:block; width:280px;" } })
+                @Html.ValidationMessageFor(model => model.Login, "", new { @style = "color:red;height:20px;display:block" })
+
+                @Html.LabelFor(model => model.Password, new { @style = "display:block;color:dimgrey;font-weight: bold;" })
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @style = "display:block; width:280px;" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @style = "color:red;height:20px;display:block" })
+
+                <input type="submit" value="Log In" style="display:block;width:100px" />
+
+                if (ViewBag.ErrorMessage != null)
+                {
+                    <label id="errorLabel" style="color:red"> @ViewBag.ErrorMessage</label>
+                }
+
+            }
+        </div>
+    </div>
 </body>
 </html>

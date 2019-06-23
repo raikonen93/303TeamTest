@@ -17,13 +17,13 @@ namespace _303TeamTest.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Role()
         {
-            this.CustomerRole = new HashSet<CustomerRole>();
+            this.CustomerRoles = new HashSet<CustomerRoles>();
         }
     
         public long RoleId { get; set; }
         public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CustomerRole> CustomerRole { get; set; }
+        public virtual ICollection<CustomerRoles> CustomerRoles { get; set; }
     }
 }

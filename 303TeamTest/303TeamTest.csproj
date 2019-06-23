@@ -108,23 +108,35 @@
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Models\CustomerModel.Context.tt">
+    <Content Include="Models\CustomModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CustomerModel.edmx</DependentUpon>
-      <LastGenOutput>CustomerModel.Context.cs</LastGenOutput>
+      <DependentUpon>CustomModel.edmx</DependentUpon>
+      <LastGenOutput>CustomModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\CustomerModel.tt">
+    <Content Include="Models\CustomModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CustomerModel.edmx</DependentUpon>
-      <LastGenOutput>CustomerModel.cs</LastGenOutput>
+      <DependentUpon>CustomModel.edmx</DependentUpon>
+      <LastGenOutput>CustomModel.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="Models\CustomModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CustomModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\CustomModel.edmx.diagram">
+      <DependentUpon>CustomModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\LoginScript.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
@@ -135,42 +147,36 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Customer.cs">
-      <DependentUpon>CustomerModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Helpers\Encryption.cs" />
     <Compile Include="Models\CustomerLogin.cs" />
-    <Compile Include="Models\CustomerModel.Context.cs">
+    <Compile Include="Models\CustomerRoles.cs">
+      <DependentUpon>CustomModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Customers.cs">
+      <DependentUpon>CustomModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CustomModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CustomerModel.Context.tt</DependentUpon>
+      <DependentUpon>CustomModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CustomerModel.cs">
+    <Compile Include="Models\CustomModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CustomerModel.tt</DependentUpon>
+      <DependentUpon>CustomModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CustomerModel.Designer.cs">
+    <Compile Include="Models\CustomModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CustomerModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\CustomerRole.cs">
-      <DependentUpon>CustomerModel.tt</DependentUpon>
+      <DependentUpon>CustomModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Role.cs">
-      <DependentUpon>CustomerModel.tt</DependentUpon>
+      <DependentUpon>CustomModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
-    <EntityDeploy Include="Models\CustomerModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>CustomerModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\CustomerModel.edmx.diagram">
-      <DependentUpon>CustomerModel.edmx</DependentUpon>
-    </Content>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -185,6 +191,7 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+    <Content Include="Views\Home\Customers.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

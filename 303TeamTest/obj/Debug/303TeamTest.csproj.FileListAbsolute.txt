@@ -58,3 +58,4 @@ C:\Users\Админ\Documents\GitHub\303TeamTest\303TeamTest\obj\Debug\303TeamTe
 C:\Users\Админ\Documents\GitHub\303TeamTest\303TeamTest\obj\Debug\303TeamTest.csproj.CopyComplete
 C:\Users\Админ\Documents\GitHub\303TeamTest\303TeamTest\obj\Debug\303TeamTest.dll
 C:\Users\Админ\Documents\GitHub\303TeamTest\303TeamTest\obj\Debug\303TeamTest.pdb
+C:\Users\Админ\Documents\GitHub\303TeamTest\303TeamTest\bin\ru\EntityFramework.SqlServer.resources.dll

@@ -1,20 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="Хранилище TestDatabaseModelContainer" CdmEntityContainer="TestDatabaseEntities">
-    <EntitySetMapping Name="Customer">
-      <EntityTypeMapping TypeName="TestDatabaseModel.Customer">
-        <MappingFragment StoreEntitySet="Customer">
-          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-          <ScalarProperty Name="LastName" ColumnName="LastName" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-          <ScalarProperty Name="Login" ColumnName="Login" />
-          <ScalarProperty Name="Password" ColumnName="Password" />
-          <ScalarProperty Name="IsDisabled" ColumnName="IsDisabled" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="CustomerRole">
       <EntityTypeMapping TypeName="TestDatabaseModel.CustomerRole">
         <MappingFragment StoreEntitySet="CustomerRole">
@@ -29,6 +15,20 @@
         <MappingFragment StoreEntitySet="Role">
           <ScalarProperty Name="RoleId" ColumnName="RoleId" />
           <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Customer">
+      <EntityTypeMapping TypeName="TestDatabaseModel.Customer">
+        <MappingFragment StoreEntitySet="Customer">
+          <ScalarProperty Name="IsDisabled" ColumnName="IsDisabled" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
