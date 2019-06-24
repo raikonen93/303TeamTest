@@ -1,1 +1,55 @@
-﻿
+﻿html {
+    background: lightgray;
+}
+
+.div1 {
+    width: 320px;
+    position: fixed;
+    top: 25%;
+    left: 40%;
+    border: gray 1px solid;
+}
+
+.div2{
+background:cornflowerblue;
+color:white;
+height:50px;
+text-align:center;
+font-size:28px;
+line-height:50px;
+border-bottom:gray 1px solid;
+}
+
+.p1 {
+    margin:0;
+}
+
+.div3 {
+    padding: 20px 0px 20px 20px;
+}
+
+.labelfor {
+    display: block;
+    color: dimgrey;
+    font-weight: bold;
+}
+
+.editorfor {
+    display: block;
+    width: 280px;
+}
+
+.validationmessagefor {
+    color: red;
+    height: 20px;
+    display: block !important;
+}
+
+.input1 {
+    display: block;
+    width: 100px
+}
+
+#errorLabel {
+    color: red;
+}

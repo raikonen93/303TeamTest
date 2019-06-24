@@ -1,0 +1,57 @@
+﻿body {
+}
+
+#logout:hover, .tablb:hover{
+    text-decoration:underline;
+}
+
+body{
+margin:0
+}
+
+#div1 {
+    background: cornflowerblue;
+    padding-top: 20px;
+    padding-left: 20px;
+}
+
+#p1 {
+    position: absolute;
+    right: 50px;
+    top: 0px;
+    margin-top: 5px;
+}
+
+#username {
+    color: white;
+    border-right: 3px royalblue solid;
+    padding-right: 5px;
+}
+
+#logout {
+    color: white;
+}
+
+#lbmansys {
+    display: block;
+    font-size: 25px;
+    color: royalblue;
+    padding-bottom: 15px;
+}
+
+.tablb {
+    padding: 5px 5px 0px 5px;  
+    display: inline-block;
+}
+
+.nonactivetab {
+    background: dodgerblue;
+}
+
+.activetab {
+    background: white;
+}
+
+#span1 {
+    margin-left: 30px;
+}

@@ -1,7 +1,34 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Customers";
+    Layout = null;
 }
-
-<h2>Customers</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customers</title>
+    <link href="~/Content/Master.css" rel="stylesheet" type="text/css" />
+    
+</head>
+<body>
+    <div id="div1">
+        <p id="p1">
+            <label id="username">UserName</label>
+            <label id="logout">Logout</label>
+        </p>
+        <label id="lbmansys">Management System</label>
+        <span id="span1">
+            <label id="lbcustomers" class="tablb activetab">Customers</label>
+            <label id="lbcustomerroles" class="tablb nonactivetab">Customer Roles</label>
+        </span>
+    </div>
+    <div id="partialContent">
+        @Html.Action("CustomersPart", "Home")
+    </div>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <script src="~/Scripts/Master.js"></script>
+</body>
+</html>
 

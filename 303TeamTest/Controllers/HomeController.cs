@@ -52,5 +52,15 @@ namespace _303TeamTest.Controllers
         {
             return View();
         }
+
+        public ActionResult CustomerRoles()
+        {
+            return View("~/Views/Home/Partials/CustomerRoles.cshtml");
+        }
+
+        public ActionResult CustomersPart()
+        {
+            return View("~/Views/Home/Partials/CustomersPart.cshtml");
+        }
     }
 }

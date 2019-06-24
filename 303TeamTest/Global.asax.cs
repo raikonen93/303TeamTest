@@ -16,14 +16,14 @@ namespace _303TeamTest
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             TestDatabaseEntities ent = new TestDatabaseEntities();
-            if (ent.Customers.FirstOrDefault(t => t.Login == "Admin") == null)
-            {
-                Customers newCust = new Customers();
-                newCust.Login = "Admin";
-                newCust.Password = Encryption.Encrypt("Admin");
-                ent.Customers.Add(newCust);
-                ent.SaveChanges();
-            }
+            //if (ent.Customers.FirstOrDefault(t => t.Login == "Admin") == null)
+            //{
+            //    Customers newCust = new Customers();
+            //    newCust.Login = "Admin";
+            //    newCust.Password = Encryption.Encrypt("Admin");
+            //    ent.Customers.Add(newCust);
+            //    ent.SaveChanges();
+            //}
         }
     }
 }
