@@ -104,6 +104,12 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\cross.png" />
+    <Content Include="Content\Images\minus.png" />
+    <Content Include="Content\Images\pencil.png" />
+    <Content Include="Content\Images\sort-desc.png" />
+    <Content Include="Content\Images\sort-asc.png" />
+    <Content Include="Content\Images\success.png" />
     <Content Include="Content\LoginStyle.css" />
     <Content Include="Content\Master.css" />
     <Content Include="Content\Site.css" />
@@ -150,6 +156,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Encryption.cs" />
+    <Compile Include="Helpers\Types\Enums.cs" />
     <Compile Include="Models\CustomerLogin.cs" />
     <Compile Include="Models\CustomerRoles.cs">
       <DependentUpon>CustomModel.tt</DependentUpon>
@@ -172,6 +179,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CustomModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\DetailsFormModel.cs" />
     <Compile Include="Models\Role.cs">
       <DependentUpon>CustomModel.tt</DependentUpon>
     </Compile>
@@ -196,6 +204,8 @@
     <Content Include="Views\Home\Customers.cshtml" />
     <Content Include="Views\Home\Partials\CustomerRoles.cshtml" />
     <Content Include="Views\Home\Partials\CustomersPart.cshtml" />
+    <Content Include="Views\Home\Partials\CustomersTable.cshtml" />
+    <Content Include="Views\Home\Partials\CustomerDetails.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

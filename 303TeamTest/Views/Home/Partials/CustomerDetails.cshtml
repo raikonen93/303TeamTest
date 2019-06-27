@@ -1,0 +1,71 @@
+﻿@{ 
+    Layout = null;
+}
+@using _303TeamTest.Models
+@model DetailsFormModel
+<div class="cddiv1" >
+    <p class="cdp1">Details</p>
+    <div class="cddiv2" >
+        <div class="cddiv3">
+            <div class="cddiv4">
+                 <input type="button" value="Save" />
+            </div>
+             <div class="floatright">
+            <input type="button" value="Cancel" />
+            </div>
+        </div>
+    </div>
+
+    <div class="cddiv5">
+        <p class="cdp2"></p>
+        <table id="detailsTable">
+            <tr><td class="detailsLabel">@Html.LabelFor(m => m.Login)</td><td class="detailsEditors">@Html.EditorFor(m => m.Login)</td></tr>
+            <tr><td class="detailsLabel">@Html.LabelFor(m => m.Password)</td><td class="detailsEditors">@Html.EditorFor(m => m.Password)</td></tr>
+            <tr><td class="detailsLabel">@Html.LabelFor(m => m.ConfirmPassword)</td><td class="detailsEditors">@Html.EditorFor(m => m.ConfirmPassword)</td></tr>
+            <tr><td class="detailsLabel">@Html.LabelFor(m => m.FirstName)</td><td class="detailsEditors">@Html.EditorFor(m => m.FirstName)</td></tr>
+            <tr><td class="detailsLabel">@Html.LabelFor(m => m.LastName)</td><td class="detailsEditors">@Html.EditorFor(m => m.LastName)</td></tr>
+            <tr><td class="detailsLabel">@Html.LabelFor(m => m.Email)</td><td class="detailsEditors">@Html.EditorFor(m => m.Email)</td></tr>
+            <tr><td class="detailsLabel">@Html.LabelFor(m => m.Role)</td><td class="detailsEditors">@Html.EditorFor(m => m.Role)</td></tr>
+            <tr><td class="detailsLabel"></td><td td class="detailsEditors">@Html.EditorFor(m => m.Active)<span>Active</span></td></tr>
+            <tr><td></td><td></td></tr>
+        </table>
+    </div>   
+
+    <div class="cddiv6">
+        <p class="cdp3">Stats</p>
+        <table id="detailsStatsTable">
+            <tr>
+                <td>
+                    Created Date
+                </td>
+                <td>
+                    12.12.2010
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Creator Name
+                </td>
+                <td>
+                    John
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Changed date
+                </td>
+                <td>
+                    17.12.2010
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Changer Name
+                </td>
+                <td>
+                    Mary
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

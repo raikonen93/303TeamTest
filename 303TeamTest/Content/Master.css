@@ -1,4 +1,5 @@
-﻿body {
+﻿html {
+    background: whitesmoke;
 }
 
 #logout:hover, .tablb:hover{
@@ -49,9 +50,270 @@ margin:0
 }
 
 .activetab {
-    background: white;
+    background: whitesmoke;
 }
 
 #span1 {
     margin-left: 30px;
+}
+
+#partialContent {
+    background: whitesmoke;
+}
+
+.imagessize{
+    width:20px;
+}
+
+#customersTable td {
+    text-align: center;
+}
+
+.selectall, .edit {
+    color: dodgerblue
+}
+
+.selectall:hover, .edit:hover{
+    text-decoration:underline;
+}
+
+#detailsTable tr{
+
+}
+
+#detailsTable td {
+    padding: 5px 0px 10px 5px;
+}
+
+.detailsLabel {
+    text-align:right !important;
+    width:25%;
+}
+
+.detailsEditors{
+    text-align:left !important;
+    width:75%;
+}
+
+#detailsTable input{
+    width:90%;   
+}
+
+#Active{
+    width:auto !important;
+}
+
+#detailsStatsTable tr:first-child{
+    text-align:left !important;
+}
+
+#detailsStatsTable tr td:nth-child(2n) {
+    text-align: right !important;
+}
+
+.cpdiv1 {
+    padding-left: 25px;
+    padding-top: 20px;
+}
+
+.cpspan1 {
+    display: block;
+    font-weight: bold;
+    padding: 5px 5px 10px 5px;
+    font-size: 18px;
+}
+
+.cpdiv2 {
+    width: 80%;
+    border-right: 1px grey solid;
+    float: left
+}
+
+.cpdiv3 {
+    border: 1px grey solid;
+    padding-top: 5px;
+    height: 25px;
+    background: lightgrey;
+    padding-right: 20px
+}
+
+.cpp1 {
+    margin: 0;
+}
+
+.cpdiv4 {
+    width: 100px;
+    float: left;
+    border-right: 1px grey solid;
+    padding: 0px 5px 5px 5px;
+}
+
+.floatright{
+    float:right;
+}
+
+.cpdiv5 {
+    width: 15%;
+    float: left;
+    margin-left: 50px;
+}
+
+.cpdiv6 {
+    text-align: center;
+    background: lightgray;
+    width: 100%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.cpinput1 {
+    width: 95%;
+}
+
+.cpdiv7 {
+    background: lightgray;
+    margin-top: 15px;
+    padding-left: 5px;
+    padding-top: 5px;
+}
+
+.cpp2 {
+    color: dodgerblue;
+    font-size: 20px;
+    margin: 0;
+}
+
+.cpp3 {
+    font-size: 17px;
+    margin: 0;
+    margin-top: 5px;
+}
+
+.cpspan2 {
+    width: 80%;
+    display: inline-block;
+}
+
+.cpspan3 {
+    float: right;
+    padding-right: 10px;
+}
+
+.cpdiv8 {
+    background: lightgray;
+    margin-top: 15px;
+    padding-left: 5px;
+    padding-top: 5px;
+}
+
+.cpp4 {
+    color: dodgerblue;
+    font-size: 20px;
+    margin: 0;
+}
+
+.cpinput2 {
+    display: inline-block;
+    width: 95%;
+}
+
+.cpdiv9 {
+    text-align: right;
+    width: 100%;
+    padding: 5px 5px 5px 0px;
+}
+
+.cpinput3 {
+    width: 100px;
+    margin-right: 3%;
+}
+
+#customersTable {
+    width: 100%;
+    background: white;
+}
+
+.pencil {
+    margin-right: 10px;
+}
+
+.cddiv1 {
+    padding-left: 3%
+}
+
+.cdp1 {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.cddiv2 {
+    text-align: center;
+}
+
+.cddiv3 {
+    width: 95%;
+    background: lightgrey;
+    padding: 10px 10px 10px 10px;
+    height: 20px;
+}
+
+.cddiv4 {
+    float: left;
+    width: 150px;
+    text-align: left;
+}
+
+.cddiv5 {
+    width: 75%;
+    float: left;
+}
+
+.cdp2 {
+    height: 30px;
+    background: lightgrey;
+    margin-bottom: 0;
+}
+
+#detailsTable {
+    width: 100%;
+    background: white;
+}
+
+.cddiv6 {
+    width: 20%;
+    float: left;
+}
+
+.cdp3 {
+    background: lightgrey;
+    height: 30px;
+    margin-bottom: 0;
+    font-size: 18px;
+    color: lightgrey;
+    padding: 0px 0px 0px 5px;
+}
+
+#detailsStatsTable {
+    background: white;
+    width: 100%;
+    margin-left: 20px;
+}
+
+.visiblesort {
+    width: 15px;
+    padding-left: 5px;
+    padding-top: 2px;
+}
+.unvisiblesort{
+    width:15px;
+    display:none;
+}
+
+#pagination{
+    display:inline-block;
+}
+
+.enabledpagination {
+    color: dodgerblue;
+    background: transparent;
 }

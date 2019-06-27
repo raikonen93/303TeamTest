@@ -9,6 +9,7 @@ namespace _303TeamTest.Controllers
 {
     public class HomeController : Controller
     {
+        private const int pageSize = 3;
         public ActionResult Login()
         {
             return View();
@@ -60,7 +61,24 @@ namespace _303TeamTest.Controllers
 
         public ActionResult CustomersPart()
         {
-            return View("~/Views/Home/Partials/CustomersPart.cshtml");
+            TestDatabaseEntities ent = new TestDatabaseEntities();
+            var table = ent.Customers.ToList();             
+            int pagecount = table.Count / pageSize == 0 ? table.Count / pageSize : table.Count / pageSize + 1;
+            ViewBag.PageCount = pagecount;
+            return View("~/Views/Home/Partials/CustomersPart.cshtml", table );
+        }
+
+        public ActionResult CustomersTable()
+        {
+            TestDatabaseEntities ent = new TestDatabaseEntities();
+            IEnumerable<Customers> table = ent.Customers.Take(pageSize).ToList();
+            return View("~/Views/Home/Partials/CustomersTable.cshtml",table);
+        }
+
+        public ActionResult CustomerDetails()
+        {
+            TestDatabaseEntities ent = new TestDatabaseEntities();
+            return View("~/Views/Home/Partials/CustomerDetails.cshtml", new DetailsFormModel());
         }
     }
 }

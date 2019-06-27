@@ -1,0 +1,37 @@
+﻿@using _303TeamTest.Models
+@model List<Customers>
+    @{ Layout = null;}
+<table id="customersTable">
+    <tr>
+        <td><input type="checkbox" /></td>
+        <td><span>Login</span><img id="loginSort" class="visiblesort" src="~/Content/Images/sort-asc.png" /></td>
+        <td><span>Name</span><img id="loginSort" class="visiblesort" src="~/Content/Images/sort-asc.png" /></td>
+        <td><span>Email</span><img id="loginSort" class="visiblesort" src="~/Content/Images/sort-asc.png" /></td>
+        <td><span>Phone</span><img id="loginSort" class="visiblesort" src="~/Content/Images/sort-asc.png" /></td>
+        <td>Active</td>
+        <td>Edit/Delete</td>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td><input type="checkbox" /></td>
+        <td class="edit">@item.Login</td>
+        <td class="edit">@(item.FirstName + " " + item.LastName)</td>
+        <td class="edit">@item.Email</td>
+        <td>@item.PhoneNumber</td>
+        <td>
+            @if (item.IsDisabled)
+            {
+                <img src="~/Content/Images/minus.png" class="imagessize" />
+            }
+            else
+            {
+                <img src="~/Content/Images/success.png" class="imagessize" />
+            }
+        </td>
+        <td><img src="~/Content/Images/pencil.png" class="imagessize pencil" /><img src="~/Content/Images/cross.png" class="imagessize" /></td>
+    </tr>
+            }       
+    </table>
+

@@ -25,5 +25,18 @@
             },
             error: function (jqXHR, exception) { AjaxError(jqXHR, exception); }
         })
-    });   
+    }); 
+    
+    $("#btnCreateCustomer").click(function () {       
+        $.ajax({
+            url: '/Home/CustomerRoles',
+            success: function (data) {
+                $("#partialContent").html(data);
+            },
+            error: function (jqXHR, exception) { AjaxError(jqXHR, exception); }
+        })
+    });  
+
+    
+
 });

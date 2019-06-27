@@ -1,20 +1,78 @@
 ﻿@{
     Layout = null;
 }
-<div>
-    <span>Edit Area</span>
-    <div>
-        <div style="width:60%">
-
+@using _303TeamTest.Models
+@model List<Customers>
+<div class="cpdiv1" >
+    <span class="cpspan1" >Edit Area</span>
+    <div class="cpdiv2">
+        <div class="cpdiv3">
+            <p class="cpp1">
+                <div class="cpdiv4" style="">
+                    <a class="selectall">Select All</a>
+                </div>
+                <div class="floatright">
+                    <div id="pagination">
+                        <input type="button" disabled value="prev" />
+                        @if (ViewBag.PageCount < 5)
+                        {
+                            for (int i = 0; i < ViewBag.PageCount; i++)
+                            {
+                                <input type="button" value="@(i+1)" class="enabledpagination" />
+                            }
+                        }
+                        else
+                        {
+                            for (int i = 0; i < 5; i++)
+                            {
+                                <input type="button" value="@(i+1)" class="enabledpagination" />
+                            }
+                            <span>...</span>
+                            <input type="button" value="@ViewBag.PageCount" class="enabledpagination" />
+                        }
+                        <input type="button" value="next" />
+                    </div>
+                </div>
+            </p>
         </div>
+        @Html.Action("CustomersTable", "Home")
+        <div class="cpdiv3">
+            <p class="cpp1">
+                <div class="cpdiv4" style="">
+                    <a class="selectall">Select All</a>
+                </div>
+                <div class="floatright">
+                    <input type="button" value="prev" />
+                    @for (int i = 0; i < 5; i++)
+                    {
+                        <input type="button" value="@(i+1)" />
+                    }
+                    <input type="button" value="next" />
+                </div>
+            </p>
+        </div>
+
+
     </div>
 
-
-
-
-
-
-
-
+    <div class="cpdiv5">
+        <div class="cpdiv6">
+            <input id="btnCreateCustomer" class="cpinput1" type="button" value="Create Customer" />
+        </div>
+        <div class="cpdiv7">
+            <p class="cpp2" >Stats</p>
+            <p class="cpp3">
+                <span class="cpspan2">Total items</span>
+                <span class="cpspan3">@Model.Count</span>
+            </p>
+        </div>
+        <div class="cpdiv8">
+            <p class="cpp4">Search</p>
+            <input class="cpinput2" type="text" />
+            <div class="cpdiv9">
+                <input class="cpinput3" type="button" value="search" />
+            </div>
+        </div>
+    </div>
 </div>
-Table
+
