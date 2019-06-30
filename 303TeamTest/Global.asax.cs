@@ -16,7 +16,7 @@ namespace _303TeamTest
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             TestDatabaseEntities ent = new TestDatabaseEntities();
-            
+          
             //if (ent.Customers.FirstOrDefault(t => t.Login == "test") == null)
             //{
             //    Customers newCust = new Customers();

@@ -16,5 +16,10 @@ namespace _303TeamTest.Models
         public string Email { get; set; }
         public Roles Role { get; set; }
         public bool Active { get; set; }
+
+        public DateTime? CreatedDate { get; set; }
+        public DateTime? ChangedDate { get; set; }
+        public string CreatorName { get; set; }
+        public string ChangerName { get; set; }
     }
 }

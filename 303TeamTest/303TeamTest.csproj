@@ -157,6 +157,9 @@
     </Compile>
     <Compile Include="Helpers\Encryption.cs" />
     <Compile Include="Helpers\Types\Enums.cs" />
+    <Compile Include="Models\CustomerDetailsData.cs">
+      <DependentUpon>CustomModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CustomerLogin.cs" />
     <Compile Include="Models\CustomerRoles.cs">
       <DependentUpon>CustomModel.tt</DependentUpon>

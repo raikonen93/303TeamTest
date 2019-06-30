@@ -166,7 +166,7 @@
                     </td>
                     <td>
                         <img src="~/Content/Images/pencil.png" onclick="editCustomer('@item.CustomerId')" class="imagessize pencil" />
-                        <img src="~/Content/Images/cross.png" class="imagessize" />
+                        <img src="~/Content/Images/cross.png" onclick="deleteCustomer('@item.CustomerId')" class="imagessize" />
                     </td>
                 </tr>
             }

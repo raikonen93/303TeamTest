@@ -191,6 +191,22 @@ function editCustomer(customerId) {
     })
 }
 
+function deleteCustomer(customerId) {
+    if (confirm("Do you really want to delete the record ?")) {
+        var page = getPage();
+        var sortedColumn = getSortedColumn();
+        var dataPost = { page: page, columnId: sortedColumn.columnId, src: sortedColumn.src, customerId: customerId };
+        $.ajax({
+            url: '/Home/DeleteCustomer',
+            data: dataPost,
+            success: function (data) {
+                $("#partialContent").html(data);
+            },
+            error: function (jqXHR, exception) { AjaxError(jqXHR, exception); }
+        })
+    }
+}
+
 function cancelEdit() {
     window.location.href = '/Home/Customers';
 }

@@ -1,5 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="Хранилище TestDatabaseModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="CustomerDetailsData">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CreatorName" Type="nvarchar(max)" />
+    <Property Name="CreatedDate" Type="date" />
+    <Property Name="ChangedDate" Type="date" />
+    <Property Name="ChangerName" Type="nvarchar(max)" />
+  </EntityType>
   <EntityType Name="CustomerRoles">
     <Key>
       <PropertyRef Name="Id" />
@@ -13,13 +23,14 @@
       <PropertyRef Name="CustomerId" />
     </Key>
     <Property Name="CustomerId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="FirstName" Type="nvarchar(max)" />
-    <Property Name="LastName" Type="nvarchar(max)" />
+    <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Email" Type="nvarchar(max)" />
     <Property Name="PhoneNumber" Type="nvarchar(max)" />
     <Property Name="Login" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
     <Property Name="IsDisabled" Type="bit" Nullable="false" />
+    <Property Name="DetailsId" Type="bigint" />
   </EntityType>
   <EntityType Name="Role">
     <Key>
@@ -52,7 +63,20 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__Customers__Detai__02FC7413">
+    <End Role="CustomerDetailsData" Type="Self.CustomerDetailsData" Multiplicity="0..1" />
+    <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CustomerDetailsData">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Customers">
+        <PropertyRef Name="DetailsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="Хранилище TestDatabaseModelContainer">
+    <EntitySet Name="CustomerDetailsData" EntityType="Self.CustomerDetailsData" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CustomerRoles" EntityType="Self.CustomerRoles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
@@ -63,6 +87,10 @@
     <AssociationSet Name="FK__CustomerR__RoleI__5FB337D6" Association="Self.FK__CustomerR__RoleI__5FB337D6">
       <End Role="Role" EntitySet="Role" />
       <End Role="CustomerRoles" EntitySet="CustomerRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Customers__Detai__02FC7413" Association="Self.FK__Customers__Detai__02FC7413">
+      <End Role="CustomerDetailsData" EntitySet="CustomerDetailsData" />
+      <End Role="Customers" EntitySet="Customers" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

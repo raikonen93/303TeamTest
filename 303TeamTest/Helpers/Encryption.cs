@@ -4,46 +4,92 @@ using System.Linq;
 using System.Web;
 using System.Text;
 using System.Security.Cryptography;
+using System.IO;
 
 namespace _303TeamTest.Helpers
 {
-    public static class Encryption
-    {       
-       private static string hash = @"test";
-       public static string Encrypt(string text)
-        {
-            string result = "";
-            byte[] data = UTF8Encoding.UTF8.GetBytes(text);
-            using (MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider())
+    public static class StringCipher
+    {        
+        private const int Keysize = 256;
+        
+        private const int DerivationIterations = 1000;
+
+        public static string Encrypt(string plainText)
+        {            
+            string passPhrase = "test";
+            var saltStringBytes = Generate256BitsOfRandomEntropy();
+            var ivStringBytes = Generate256BitsOfRandomEntropy();
+            var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
+            using (var password = new Rfc2898DeriveBytes(passPhrase, saltStringBytes, DerivationIterations))
             {
-                byte[] keys = md5.ComputeHash(UTF8Encoding.UTF8.GetBytes(hash));
-                using (TripleDESCryptoServiceProvider tripleDes = new TripleDESCryptoServiceProvider() { Key = keys, Mode = CipherMode.ECB, Padding = PaddingMode.PKCS7 })
+                var keyBytes = password.GetBytes(Keysize / 8);
+                using (var symmetricKey = new RijndaelManaged())
                 {
-                    ICryptoTransform transform = tripleDes.CreateEncryptor();
-                    byte[] results = transform.TransformFinalBlock(data, 0, data.Length);
-                    result = Convert.ToBase64String(results);
+                    symmetricKey.BlockSize = 256;
+                    symmetricKey.Mode = CipherMode.CBC;
+                    symmetricKey.Padding = PaddingMode.PKCS7;
+                    using (var encryptor = symmetricKey.CreateEncryptor(keyBytes, ivStringBytes))
+                    {
+                        using (var memoryStream = new MemoryStream())
+                        {
+                            using (var cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write))
+                            {
+                                cryptoStream.Write(plainTextBytes, 0, plainTextBytes.Length);
+                                cryptoStream.FlushFinalBlock();
+                                var cipherTextBytes = saltStringBytes;
+                                cipherTextBytes = cipherTextBytes.Concat(ivStringBytes).ToArray();
+                                cipherTextBytes = cipherTextBytes.Concat(memoryStream.ToArray()).ToArray();
+                                memoryStream.Close();
+                                cryptoStream.Close();
+                                return Convert.ToBase64String(cipherTextBytes);
+                            }
+                        }
+                    }
                 }
             }
-            return result;
         }
 
-       public static string Decrypt(string text)
+        public static string Decrypt(string cipherText)
         {
-           
-            string base64string = Convert.ToBase64String(Encoding.UTF8.GetBytes(text)); //0YLQtdGB0YI=
-            byte[] data = Convert.FromBase64String(base64string);
-            string result = "";
-            using (MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider())
+            string passPhrase = "test";
+            var cipherTextBytesWithSaltAndIv = Convert.FromBase64String(cipherText);
+            var saltStringBytes = cipherTextBytesWithSaltAndIv.Take(Keysize / 8).ToArray();
+            var ivStringBytes = cipherTextBytesWithSaltAndIv.Skip(Keysize / 8).Take(Keysize / 8).ToArray();
+            var cipherTextBytes = cipherTextBytesWithSaltAndIv.Skip((Keysize / 8) * 2).Take(cipherTextBytesWithSaltAndIv.Length - ((Keysize / 8) * 2)).ToArray();
+
+            using (var password = new Rfc2898DeriveBytes(passPhrase, saltStringBytes, DerivationIterations))
             {
-                byte[] keys = md5.ComputeHash(UTF8Encoding.UTF8.GetBytes(hash));
-                using (TripleDESCryptoServiceProvider tripleDes = new TripleDESCryptoServiceProvider() { Key = keys, Mode = CipherMode.ECB, Padding = PaddingMode.PKCS7 })
+                var keyBytes = password.GetBytes(Keysize / 8);
+                using (var symmetricKey = new RijndaelManaged())
                 {
-                    ICryptoTransform transform = tripleDes.CreateDecryptor();
-                    byte[] results = transform.TransformFinalBlock(data, 0, data.Length);
-                    result = UTF8Encoding.UTF8.GetString(results);
+                    symmetricKey.BlockSize = 256;
+                    symmetricKey.Mode = CipherMode.CBC;
+                    symmetricKey.Padding = PaddingMode.PKCS7;
+                    using (var decryptor = symmetricKey.CreateDecryptor(keyBytes, ivStringBytes))
+                    {
+                        using (var memoryStream = new MemoryStream(cipherTextBytes))
+                        {
+                            using (var cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read))
+                            {
+                                var plainTextBytes = new byte[cipherTextBytes.Length];
+                                var decryptedByteCount = cryptoStream.Read(plainTextBytes, 0, plainTextBytes.Length);
+                                memoryStream.Close();
+                                cryptoStream.Close();
+                                return Encoding.UTF8.GetString(plainTextBytes, 0, decryptedByteCount);
+                            }
+                        }
+                    }
                 }
             }
-            return result;
+        }
+        private static byte[] Generate256BitsOfRandomEntropy()
+        {
+            var randomBytes = new byte[32]; 
+            using (var rngCsp = new RNGCryptoServiceProvider())
+            {                
+                rngCsp.GetBytes(randomBytes);
+            }
+            return randomBytes;
         }
     }
 }

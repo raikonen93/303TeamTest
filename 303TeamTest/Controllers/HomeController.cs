@@ -22,9 +22,9 @@ namespace _303TeamTest.Controllers
             if (ModelState.IsValid)
             {
                 TestDatabaseEntities ent = new TestDatabaseEntities();
-                var decryptedPassword = Encryption.Encrypt(data.Password);
-                var customer = ent.Customers.FirstOrDefault(t => (t.Login.ToUpper() == data.Login && t.Password == decryptedPassword));
-                var roles=ent.CustomerRoles.Where(t=>(t.Customers.Login.ToUpper() == data.Login && t.Customers.Password == decryptedPassword && t.Role.Name!="Customer"));
+                var encryptedPassword = StringCipher.Encrypt(data.Password);
+                var customer = ent.Customers.FirstOrDefault(t => (t.Login.ToUpper() == data.Login && t.Password == encryptedPassword));
+                var roles=ent.CustomerRoles.Where(t=>(t.Customers.Login.ToUpper() == data.Login && t.Customers.Password == encryptedPassword && t.Role.Name!="Customer"));
                 if (customer == null)
                 {
                     ViewBag.ErrorMessage = "Unfortunately the user is not found!";
@@ -148,7 +148,7 @@ namespace _303TeamTest.Controllers
                 table = select.OrderBy(t => t.CustomerId).Skip(skipCount).Take(pageSize).ToList(); 
             } 
 
-            int pagecount = tablecount / pageSize == 0 ? tablecount / pageSize : tablecount / pageSize + 1;
+            int pagecount = tablecount % pageSize == 0 ? tablecount / pageSize : tablecount / pageSize + 1;
             ViewBag.PageCount = pagecount;
             ViewBag.TotalRowsCount = tablecount;
             ViewBag.SearchText = searchtext;
@@ -179,11 +179,19 @@ namespace _303TeamTest.Controllers
             {
                 editCustomer.CustomerId = customer.CustomerId;
                 editCustomer.Login = customer.Login;
-                editCustomer.Password = customer.Password;
-                editCustomer.ConfirmPassword = customer.Password;
+                editCustomer.Password = StringCipher.Decrypt(customer.Password); 
+                editCustomer.ConfirmPassword = StringCipher.Decrypt(customer.Password); 
                 editCustomer.FirstName = customer.FirstName;
                 editCustomer.LastName = customer.LastName;
                 editCustomer.Email = customer.Email;
+                if (customer.CustomerDetailsData != null)
+                {
+                    editCustomer.ChangerName = customer.CustomerDetailsData.ChangerName;
+                    editCustomer.ChangedDate = customer.CustomerDetailsData.ChangedDate;
+                    editCustomer.CreatedDate = customer.CustomerDetailsData.CreatedDate;
+                    editCustomer.CreatorName = customer.CustomerDetailsData.CreatorName;
+
+                }
             }
             return View("~/Views/Home/Partials/CustomerDetails.cshtml", editCustomer);
         }
@@ -196,6 +204,11 @@ namespace _303TeamTest.Controllers
         public void CancelEditCustomerDetails()
         {
             RedirectToAction("Customers");
+        }
+
+        public void DeleteCustomer(int? page, string columnId, string src, string customerId)
+        {
+            //делаем удаление, сохранение и редирект на метод CustomersPart
         }
     }
 }
