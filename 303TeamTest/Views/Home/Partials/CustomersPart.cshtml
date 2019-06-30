@@ -13,29 +13,164 @@
                 </div>
                 <div class="floatright">
                     <div id="pagination">
-                        <input type="button" disabled value="prev" />
-                        @if (ViewBag.PageCount < 5)
+                        @if (ViewBag.SelectedPage == 1 || ViewBag.PageCount==0)
                         {
-                            for (int i = 0; i < ViewBag.PageCount; i++)
+                            <input type="button" disabled value="prev" />
+                        }
+                        else
+                        {
+                            <input type="button" class="enabledpagination" value="prev" onclick="prevPage(this,  @ViewBag.SelectedPage)" />
+                        }
+                        @{
+                            int num = ViewBag.SelectedPage / 5;
+                            int startPage = num * 5;
+                            if (startPage > 1)
                             {
-                                <input type="button" value="@(i+1)" class="enabledpagination" />
+                                startPage -= 1;
+                            }
+
+                        }
+                        @if (ViewBag.PageCount < 5 )
+                        {
+                            for (int i = startPage; i < ViewBag.PageCount; i++)
+                            {
+                                string pageid = "page" + i;
+                                if (i == ViewBag.SelectedPage - 1)
+                                {
+                                    <input id="@pageid" type="button" value="@(i + 1)" class="enabledpagination selectedpage" onclick="pageClick(this)" />
+                                }
+                                else
+                                {
+                                    <input id="@pageid" type="button" value="@(i + 1)" class="enabledpagination" onclick="pageClick(this)" />
+                                            }
+                                        }
+                                    }
+                        else if (ViewBag.PageCount - ViewBag.SelectedPage <5)
+                                    {
+                                        
+                            <input type="button" value="1" class="enabledpagination" onclick="pageClick(this)" />
+                            <span>...</span>
+                            for (int i = ViewBag.PageCount-5; i<ViewBag.PageCount; i++)
+                            {
+                                string pageid = "page" + i;
+                                if (i == ViewBag.SelectedPage-1)
+                                {
+                                    <input id="@pageid" type="button" value="@(i + 1)" class="enabledpagination selectedpage" onclick="pageClick(this)" />
+                                }
+                                else
+                                {
+                                    <input id="@pageid" type="button" value="@(i + 1)" class="enabledpagination " onclick="pageClick(this)" />
+
+                                }
                             }
                         }
                         else
                         {
-                            for (int i = 0; i < 5; i++)
+                            for (int i = startPage, j = 0; j < 5; i++, j++)
                             {
-                                <input type="button" value="@(i+1)" class="enabledpagination" />
+                                string pageid = "page" + i;
+                                if (i == ViewBag.SelectedPage - 1)
+                                {
+                                    <input id="@pageid" type="button" value="@(i + 1)" class="enabledpagination selectedpage" onclick="pageClick(this)" />
+                                }
+                                else
+                                {
+                                    <input id="@pageid" type="button" value="@(i + 1)" class="enabledpagination " onclick="pageClick(this)" />
+
+                                }
                             }
                             <span>...</span>
-                            <input type="button" value="@ViewBag.PageCount" class="enabledpagination" />
+                            <input type="button" value="@ViewBag.PageCount" class="enabledpagination" onclick="pageClick(this)" />
                         }
-                        <input type="button" value="next" />
+                        @if (ViewBag.SelectedPage != ViewBag.PageCount &&  ViewBag.PageCount!=0)
+                        {
+                            <input type="button" value="next" class="enabledpagination" onclick="nextPage(this)" />
+                        }
+                        else
+                        {
+                            <input type="button" disabled value="next" />
+                        }
                     </div>
                 </div>
             </p>
         </div>
-        @Html.Action("CustomersTable", "Home")
+        <table id="customersTable">
+            <tr>
+                <td><input type="checkbox" /></td>
+                <td onclick="sortClick('loginSort')" class="sortColumn" onselectstart="return false">
+                    <span>Login</span>
+                    @if (ViewBag.SortedColumn == "loginSort")
+                    {
+                        <img id="loginSort" src="@ViewBag.SortedType" class="visiblesort" />
+                    }
+                    else
+                    {
+                        <img id="loginSort" class="visiblesort" />
+                    }
+                </td>
+                <td onclick="sortClick('nameSort')" class="sortColumn" onselectstart="return false">
+                    <span>Name</span>
+                    @if (ViewBag.SortedColumn == "nameSort")
+                    {
+                        <img id="nameSort" src="@ViewBag.SortedType" class="visiblesort" />
+                    }
+                    else
+                    {
+                        <img id="nameSort" class="visiblesort" />
+                    }
+                </td>
+                <td onclick="sortClick('emailSort')" class="sortColumn" onselectstart="return false">
+                    <span>Email</span>
+                    @if (ViewBag.SortedColumn == "emailSort")
+                    {
+                        <img id="emailSort" src="@ViewBag.SortedType" class="visiblesort" />
+                    }
+                    else
+                    {
+                        <img id="emailSort" class="visiblesort" />
+                    }
+                </td>
+                <td onclick="sortClick('phoneSort')" class="sortColumn" onselectstart="return false">
+                    <span>Phone</span>
+                    @if (ViewBag.SortedColumn == "phoneSort")
+                    {
+                        <img id="phoneSort" src="@ViewBag.SortedType" class="visiblesort" />
+
+                    }
+                    else
+                    {
+                        <img id="phoneSort" class="visiblesort" />
+                    }
+                </td>
+                <td>Active</td>
+                <td>Edit/Delete</td>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><input type="checkbox" /></td>
+                    <td onclick="editCustomer('@item.CustomerId')" class="edit">@item.Login</td>
+                    <td onclick="editCustomer('@item.CustomerId')" class="edit">@(item.FirstName + " " + item.LastName)</td>
+                    <td class="edit" onclick="window.location.href = 'mailto:' + '@item.Email'">@item.Email</td>
+                    <td>@item.PhoneNumber</td>
+                    <td>
+                        @if (item.IsDisabled)
+                        {
+                            <img src="~/Content/Images/minus.png" class="imagessize" />
+                        }
+                        else
+                        {
+                            <img src="~/Content/Images/success.png" class="imagessize" />
+                        }
+                    </td>
+                    <td>
+                        <img src="~/Content/Images/pencil.png" onclick="editCustomer('@item.CustomerId')" class="imagessize pencil" />
+                        <img src="~/Content/Images/cross.png" class="imagessize" />
+                    </td>
+                </tr>
+            }
+        </table>
         <div class="cpdiv3">
             <p class="cpp1">
                 <div class="cpdiv4" style="">
@@ -63,16 +198,20 @@
             <p class="cpp2" >Stats</p>
             <p class="cpp3">
                 <span class="cpspan2">Total items</span>
-                <span class="cpspan3">@Model.Count</span>
+                <span class="cpspan3">@ViewBag.TotalRowsCount</span>
             </p>
         </div>
         <div class="cpdiv8">
             <p class="cpp4">Search</p>
-            <input class="cpinput2" type="text" />
+            <input class="cpinput2" id="searchText" type="text" value="@ViewBag.SearchText" />
             <div class="cpdiv9">
-                <input class="cpinput3" type="button" value="search" />
+                <input class="cpinput3" type="button" value="Search" onclick="searchClick()" />
             </div>
         </div>
     </div>
 </div>
+
+<script>
+   
+</script>
 

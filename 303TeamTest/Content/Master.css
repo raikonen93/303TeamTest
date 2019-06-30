@@ -282,6 +282,7 @@ margin:0
 .cddiv6 {
     width: 20%;
     float: left;
+    margin-left: 20px;
 }
 
 .cdp3 {
@@ -295,8 +296,7 @@ margin:0
 
 #detailsStatsTable {
     background: white;
-    width: 100%;
-    margin-left: 20px;
+    width: 100%;   
 }
 
 .visiblesort {
@@ -316,4 +316,8 @@ margin:0
 .enabledpagination {
     color: dodgerblue;
     background: transparent;
+}
+
+.selectedpage{
+    background:white;
 }

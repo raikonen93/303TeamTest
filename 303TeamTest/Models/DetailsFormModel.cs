@@ -7,6 +7,7 @@ namespace _303TeamTest.Models
 {
     public class DetailsFormModel
     {
+        public long CustomerId { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }

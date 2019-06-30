@@ -204,7 +204,6 @@
     <Content Include="Views\Home\Customers.cshtml" />
     <Content Include="Views\Home\Partials\CustomerRoles.cshtml" />
     <Content Include="Views\Home\Partials\CustomersPart.cshtml" />
-    <Content Include="Views\Home\Partials\CustomersTable.cshtml" />
     <Content Include="Views\Home\Partials\CustomerDetails.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

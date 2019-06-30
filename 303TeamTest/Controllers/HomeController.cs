@@ -9,9 +9,10 @@ namespace _303TeamTest.Controllers
 {
     public class HomeController : Controller
     {
-        private const int pageSize = 3;
+        private const int pageSize = 2;
         public ActionResult Login()
         {
+           
             return View();
         }
 
@@ -51,6 +52,13 @@ namespace _303TeamTest.Controllers
 
         public ActionResult Customers()
         {
+            if (Request.Cookies["searchtext"] != null)
+            {
+                var c = new HttpCookie("searchtext");
+                c.Expires = DateTime.Now.AddDays(-1);
+                Response.Cookies.Add(c);
+            }
+               
             return View();
         }
 
@@ -59,26 +67,135 @@ namespace _303TeamTest.Controllers
             return View("~/Views/Home/Partials/CustomerRoles.cshtml");
         }
 
-        public ActionResult CustomersPart()
+        public ActionResult CustomersPart(int? page, string columnId, string src)
         {
-            TestDatabaseEntities ent = new TestDatabaseEntities();
-            var table = ent.Customers.ToList();             
-            int pagecount = table.Count / pageSize == 0 ? table.Count / pageSize : table.Count / pageSize + 1;
-            ViewBag.PageCount = pagecount;
-            return View("~/Views/Home/Partials/CustomersPart.cshtml", table );
-        }
+            ViewBag.SelectedPage = page==null?1:page;            
+            ViewBag.SortedColumn = columnId;
+            ViewBag.SortedType = src;
+            string searchtext = string.Empty;
+            if (Request.Cookies["searchtext"]!=null)
+                searchtext=Request.Cookies["searchtext"].Value;
 
-        public ActionResult CustomersTable()
-        {
+            int skipCount = (ViewBag.SelectedPage - 1) * pageSize;
             TestDatabaseEntities ent = new TestDatabaseEntities();
-            IEnumerable<Customers> table = ent.Customers.Take(pageSize).ToList();
-            return View("~/Views/Home/Partials/CustomersTable.cshtml",table);
-        }
+            List<Customers> table;
+            int tablecount = 0;
+            if (columnId == "loginSort")
+            {
+                if (src.Contains("asc"))
+                {
+                    var select = ent.Customers.Where(t => t.Email.Contains(searchtext) || t.FirstName.Contains(searchtext) || t.LastName.Contains(searchtext) || t.Login.Contains(searchtext) || t.PhoneNumber.Contains(searchtext) || t.CustomerRoles.Any(r => r.Role.Name.Contains(searchtext))).ToList();
+                    tablecount = select.Count;
+                    table = select.OrderBy(t => t.Login).Skip(skipCount).Take(pageSize).ToList();
+                }
+                else
+                {
+                    var select = ent.Customers.Where(t => t.Email.Contains(searchtext) || t.FirstName.Contains(searchtext) || t.LastName.Contains(searchtext) || t.Login.Contains(searchtext) || t.PhoneNumber.Contains(searchtext) || t.CustomerRoles.Any(r => r.Role.Name.Contains(searchtext))).ToList();
+                    tablecount = select.Count;
+                    table = select.OrderBy(t => t.Login).Skip(skipCount).Take(pageSize).ToList();
+                }
+             }
+            else if (columnId == "nameSort")
+            {
+                if (src.Contains("asc"))
+                {
+                    var select = ent.Customers.Where(t => t.Email.Contains(searchtext) || t.FirstName.Contains(searchtext) || t.LastName.Contains(searchtext) || t.Login.Contains(searchtext) || t.PhoneNumber.Contains(searchtext) || t.CustomerRoles.Any(r => r.Role.Name.Contains(searchtext))).ToList();
+                    tablecount = select.Count;
+                    table = select.OrderBy(t => t.FirstName).ThenBy(t => t.LastName).Skip(skipCount).Take(pageSize).ToList();
+                }
+                else
+                {
+                    var select = ent.Customers.Where(t => t.Email.Contains(searchtext) || t.FirstName.Contains(searchtext) || t.LastName.Contains(searchtext) || t.Login.Contains(searchtext) || t.PhoneNumber.Contains(searchtext) || t.CustomerRoles.Any(r => r.Role.Name.Contains(searchtext))).ToList();
+                    tablecount = select.Count;
+                    table = select.OrderByDescending(t => t.FirstName).ThenBy(t => t.LastName).Skip(skipCount).Take(pageSize).ToList();
+                }
+            }
+            else if (columnId == "emailSort")
+            {
+                if (src.Contains("asc"))
+                {
+                    var select = ent.Customers.Where(t => t.Email.Contains(searchtext) || t.FirstName.Contains(searchtext) || t.LastName.Contains(searchtext) || t.Login.Contains(searchtext) || t.PhoneNumber.Contains(searchtext) || t.CustomerRoles.Any(r => r.Role.Name.Contains(searchtext))).ToList();
+                    tablecount = select.Count;
+                    table = select.OrderBy(t => t.Email).Skip(skipCount).Take(pageSize).ToList();
+                }
+                else
+                {
+                    var select = ent.Customers.Where(t => t.Email.Contains(searchtext) || t.FirstName.Contains(searchtext) || t.LastName.Contains(searchtext) || t.Login.Contains(searchtext) || t.PhoneNumber.Contains(searchtext) || t.CustomerRoles.Any(r => r.Role.Name.Contains(searchtext))).ToList();
+                    tablecount = select.Count;
+                    table = select.OrderByDescending(t => t.Email).Skip(skipCount).Take(pageSize).ToList();
+                }
+                
+            }
+            else if (columnId == "phoneSort")
+            {
+                if (src.Contains("asc"))
+                {
+                    var select = ent.Customers.Where(t => t.Email.Contains(searchtext) || t.FirstName.Contains(searchtext) || t.LastName.Contains(searchtext) || t.Login.Contains(searchtext) || t.PhoneNumber.Contains(searchtext) || t.CustomerRoles.Any(r => r.Role.Name.Contains(searchtext))).ToList();
+                    tablecount = select.Count;
+                    table = select.OrderBy(t => t.PhoneNumber).Skip(skipCount).Take(pageSize).ToList();
+                }
+                else
+                {
+                    var select = ent.Customers.Where(t => t.Email.Contains(searchtext) || t.FirstName.Contains(searchtext) || t.LastName.Contains(searchtext) || t.Login.Contains(searchtext) || t.PhoneNumber.Contains(searchtext) || t.CustomerRoles.Any(r => r.Role.Name.Contains(searchtext))).ToList();
+                    tablecount = select.Count;
+                    table = select.OrderByDescending(t => t.PhoneNumber).Skip(skipCount).Take(pageSize).ToList();
+                }
+            }
+            else
+            {
+                var select = ent.Customers.Where(t => t.Email.Contains(searchtext) || t.FirstName.Contains(searchtext) || t.LastName.Contains(searchtext) || t.Login.Contains(searchtext) || t.PhoneNumber.Contains(searchtext) || t.CustomerRoles.Any(r => r.Role.Name.Contains(searchtext))).ToList();
+                tablecount = select.Count;
+                table = select.OrderBy(t => t.CustomerId).Skip(skipCount).Take(pageSize).ToList(); 
+            } 
+
+            int pagecount = tablecount / pageSize == 0 ? tablecount / pageSize : tablecount / pageSize + 1;
+            ViewBag.PageCount = pagecount;
+            ViewBag.TotalRowsCount = tablecount;
+            ViewBag.SearchText = searchtext;
+
+            return View("~/Views/Home/Partials/CustomersPart.cshtml", table );
+        }       
 
         public ActionResult CustomerDetails()
         {
             TestDatabaseEntities ent = new TestDatabaseEntities();
             return View("~/Views/Home/Partials/CustomerDetails.cshtml", new DetailsFormModel());
+        }
+
+        public ActionResult PageChangedOrSorted(int pagenumber, string sortedColumn)
+        {
+            ViewBag.SelectedPage = 1;
+            TestDatabaseEntities ent = new TestDatabaseEntities();
+            IEnumerable<Customers> table = ent.Customers.Take(pageSize).ToList();
+            return View("~/Views/Home/Partials/CustomersTable.cshtml", table);
+        }
+
+        public ActionResult EditOrNewCustomer(string customerId="")
+        {
+            TestDatabaseEntities ent = new TestDatabaseEntities();
+            DetailsFormModel editCustomer = new DetailsFormModel();
+            var customer = ent.Customers.Where(t => t.CustomerId.ToString() == customerId).FirstOrDefault();
+            if (customer != null)
+            {
+                editCustomer.CustomerId = customer.CustomerId;
+                editCustomer.Login = customer.Login;
+                editCustomer.Password = customer.Password;
+                editCustomer.ConfirmPassword = customer.Password;
+                editCustomer.FirstName = customer.FirstName;
+                editCustomer.LastName = customer.LastName;
+                editCustomer.Email = customer.Email;
+            }
+            return View("~/Views/Home/Partials/CustomerDetails.cshtml", editCustomer);
+        }
+
+        public void SaveCustomersDetail()
+        {
+            RedirectToAction("Customers");
+        }
+
+        public void CancelEditCustomerDetails()
+        {
+            RedirectToAction("Customers");
         }
     }
 }
